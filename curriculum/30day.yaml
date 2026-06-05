@@ -1,0 +1,176 @@
+# 사주공학 30일 커리큘럼
+# Educational progression from basics to advanced Saju analysis
+
+episodes:
+  # Week 1: 기초 개념 (Foundation)
+  - day: 1
+    title: "사주가 엔지니어링이 될 수 있을까?"
+    goal: "채널 소개, 사주를 데이터로 보는 관점 제시"
+    keywords: ["사주공학", "명리학", "데이터분석", "동양철학"]
+    tone: "전직 CTO의 차분한 접근"
+    
+  - day: 2
+    title: "천간지지, 우주의 좌표계"
+    goal: "천간 10개, 지지 12개의 구조적 이해"
+    keywords: ["천간", "지지", "갑을병정", "자축인묘"]
+    example_birth:
+      datetime: "1990-05-15T14:30:00"
+      sex: "M"
+    
+  - day: 3
+    title: "오행의 균형방정식"
+    goal: "목화토금수 5원소의 상생상극 관계"
+    keywords: ["오행", "목화토금수", "상생", "상극"]
+    
+  - day: 4
+    title: "당신의 일간, 인생의 원점"
+    goal: "일간(일주의 천간)이 가지는 의미"
+    keywords: ["일간", "일주", "본인", "기준점"]
+    
+  - day: 5
+    title: "이병철 회장 사주 엔지니어링 분석"
+    goal: "실제 인물 사주 풀이 시연"
+    keywords: ["이병철", "삼성", "사례분석"]
+    example_birth:
+      datetime: "1910-02-12T08:00:00"
+      is_lunar: true
+      sex: "M"
+
+  # Week 2: 십성의 이해 (Ten Gods)
+  - day: 6
+    title: "비견과 겁재, 나와 같은 오행"
+    goal: "비견/겁재의 의미와 작용"
+    keywords: ["비견", "겁재", "형제", "경쟁"]
+    
+  - day: 7
+    title: "식신과 상관, 내가 생하는 오행"
+    goal: "식신/상관의 창조성과 표현력"
+    keywords: ["식신", "상관", "창조", "표현"]
+    
+  - day: 8
+    title: "편재와 정재, 내가 극하는 오행"
+    goal: "재성의 물질적 의미"
+    keywords: ["편재", "정재", "재물", "경제"]
+    
+  - day: 9
+    title: "편관과 정관, 나를 극하는 오행"
+    goal: "관성의 사회적 역할"
+    keywords: ["편관", "정관", "직업", "권력"]
+    
+  - day: 10
+    title: "편인과 정인, 나를 생하는 오행"
+    goal: "인성의 학문과 보호"
+    keywords: ["편인", "정인", "학문", "어머니"]
+    
+  - day: 11
+    title: "십성 분포도로 보는 성격 지도"
+    goal: "십성 분포의 통계적 해석"
+    keywords: ["십성분포", "성격분석", "통계"]
+    
+  - day: 12
+    title: "용신 알고리즘의 이해"
+    goal: "부족한 오행을 찾는 방법"
+    keywords: ["용신", "희신", "기신", "균형"]
+
+  # Week 3: 대운과 시간 (Luck Pillars & Time)
+  - day: 13
+    title: "대운, 10년 단위 인생 그래프"
+    goal: "대운의 계산과 의미"
+    keywords: ["대운", "10년", "운세", "변화"]
+    
+  - day: 14
+    title: "세운, 올해의 변수"
+    goal: "연간 운세의 이해"
+    keywords: ["세운", "연운", "올해", "변화"]
+    
+  - day: 15
+    title: "월운과 일운, 미시적 변화"
+    goal: "월별, 일별 변화 패턴"
+    keywords: ["월운", "일운", "단기", "변동"]
+    
+  - day: 16
+    title: "운의 교체기, 변곡점 읽기"
+    goal: "대운 교체기의 특징"
+    keywords: ["교운기", "변곡점", "전환"]
+    
+  - day: 17
+    title: "공망과 형충파해"
+    goal: "특수한 간지 관계"
+    keywords: ["공망", "형", "충", "파", "해"]
+    
+  - day: 18
+    title: "신살은 노이즈인가 시그널인가"
+    goal: "신살의 현대적 해석"
+    keywords: ["신살", "도화", "역마", "화개"]
+
+  # Week 4: 실전 분석 (Practical Analysis)
+  - day: 19
+    title: "갑목 일간의 8가지 패턴"
+    goal: "갑목 일간별 특성 분석"
+    keywords: ["갑목", "양목", "큰나무"]
+    example_birth:
+      datetime: "1985-03-20T07:30:00"
+      sex: "M"
+    
+  - day: 20
+    title: "을목 일간의 섬세한 생존법"
+    goal: "을목 일간별 특성 분석"
+    keywords: ["을목", "음목", "꽃", "덩굴"]
+    
+  - day: 21
+    title: "병화 일간, 태양의 리더십"
+    goal: "병화 일간별 특성 분석"
+    keywords: ["병화", "태양", "리더십"]
+    
+  - day: 22
+    title: "정화 일간, 촛불의 온기"
+    goal: "정화 일간별 특성 분석"
+    keywords: ["정화", "촛불", "온화"]
+    
+  - day: 23
+    title: "무토 일간, 산의 묵직함"
+    goal: "무토 일간별 특성 분석"
+    keywords: ["무토", "산", "중립", "포용"]
+    
+  - day: 24
+    title: "기토 일간, 밭의 생산성"
+    goal: "기토 일간별 특성 분석"
+    keywords: ["기토", "밭", "세심", "실용"]
+
+  # Week 5: 고급 주제 (Advanced Topics)
+  - day: 25
+    title: "경금 일간, 칼의 결단력"
+    goal: "경금 일간별 특성 분석"
+    keywords: ["경금", "칼", "결단", "정의"]
+    
+  - day: 26
+    title: "신금 일간, 보석의 가치"
+    goal: "신금 일간별 특성 분석"
+    keywords: ["신금", "보석", "섬세", "완벽"]
+    
+  - day: 27
+    title: "임수 일간, 강물의 흐름"
+    goal: "임수 일간별 특성 분석"
+    keywords: ["임수", "강물", "지혜", "유연"]
+    
+  - day: 28
+    title: "계수 일간, 이슬의 침투력"
+    goal: "계수 일간별 특성 분석"
+    keywords: ["계수", "이슬", "비", "침투"]
+    
+  - day: 29
+    title: "사주 균형의 데이터 시각화"
+    goal: "오행 분포를 차트로 이해하기"
+    keywords: ["데이터시각화", "차트", "균형분석"]
+    
+  - day: 30
+    title: "사주공학 30일, 그 너머로"
+    goal: "학습 정리와 향후 방향"
+    keywords: ["정리", "회고", "미래", "발전"]
+
+# 공통 설정
+defaults:
+  video_length: "8-12분"
+  intro_length: "30초"
+  thumbnail_style: "자단목 서재"
+  disclaimer: "본 콘텐츠는 교양과 엔터테인먼트 목적입니다"

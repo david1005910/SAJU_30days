@@ -1,0 +1,185 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  QUEUED
+  RUNNING
+  REVIEW
+  APPROVED
+  PUBLISHED
+  FAILED
+}
+
+enum AssetType {
+  IMAGE
+  AUDIO
+  SRT
+}
+
+model Episode {
+  id           String       @id @default(cuid())
+  number       Int          @unique
+  title        String?
+  status       Status       @default(QUEUED)
+  scheduledFor DateTime?
+  goal         String       @db.Text
+  keywords     String[]
+  
+  chart        SajuChart?
+  script       Script?
+  scenes       Scene[]
+  renders      RenderJob[]
+  publication  Publication?
+  costs        CostLog[]
+  
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  
+  @@index([status])
+  @@index([scheduledFor])
+}
+
+model SajuChart {
+  id           String   @id @default(cuid())
+  episodeId    String   @unique
+  episode      Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  // Input data
+  birthInput   Json     // {datetime, calendar, sex, time_known}
+  
+  // Calculated results
+  pillars      Json     // {year:[gan,zhi], month:[gan,zhi], day:[gan,zhi], hour:[gan,zhi]}
+  dayMaster    String   // 일간
+  fiveElements Json     // {목:2, 화:1, 토:2, 금:2, 수:1}
+  tenGods      Json     // 십성 mapping
+  luckPillars  Json     // {direction, start_age, sequence}
+  
+  verifyHash   String   // SHA256 of calculation for validation
+  createdAt    DateTime @default(now())
+}
+
+model Script {
+  id           String   @id @default(cuid())
+  episodeId    String   @unique
+  episode      Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  intro        String   @db.Text  // 30-second hook
+  body         Json     // Array of sections
+  meta         Json     // {titles:[], description, tags:[], thumbnail_text}
+  
+  // AI metadata
+  model        String   // Claude model used
+  temperature  Float
+  promptTokens Int
+  outputTokens Int
+  
+  validated    Boolean  @default(false)  // Passed hallucination check
+  validationLog Json?   // Validation details
+  
+  createdAt    DateTime @default(now())
+}
+
+model Scene {
+  id           String   @id @default(cuid())
+  episodeId    String
+  episode      Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  order        Int
+  narration    String   @db.Text
+  imagePrompt  String   @db.Text
+  onscreenText String?  @db.Text
+  infographic  String?  // Type of infographic (five_elements_bar, ten_gods_table, etc.)
+  durationSec  Float
+  
+  assets       Asset[]
+  
+  createdAt    DateTime @default(now())
+  
+  @@unique([episodeId, order])
+  @@index([episodeId])
+}
+
+model Asset {
+  id        String    @id @default(cuid())
+  sceneId   String
+  scene     Scene     @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  
+  type      AssetType
+  path      String    // File path or URL
+  meta      Json?     // Generation metadata
+  
+  createdAt DateTime  @default(now())
+  
+  @@index([sceneId, type])
+}
+
+model RenderJob {
+  id          String    @id @default(cuid())
+  episodeId   String
+  episode     Episode   @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  status      Status    @default(QUEUED)
+  outputPath  String?
+  errorLog    String?   @db.Text
+  
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  
+  @@index([episodeId])
+  @@index([status])
+}
+
+model Publication {
+  id          String    @id @default(cuid())
+  episodeId   String    @unique
+  episode     Episode   @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  youtubeId   String?   @unique  // YouTube video ID
+  visibility  String    @default("private")  // private, unlisted, public
+  
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  
+  @@index([youtubeId])
+}
+
+model CostLog {
+  id        String   @id @default(cuid())
+  episodeId String
+  episode   Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  stage     String   // calc, interpret, image, tts, render, youtube
+  item      String   // claude_tokens, edge_tts_chars, image_gen, youtube_quota
+  quantity  Float
+  unitCost  Float
+  amount    Float    // quantity * unitCost
+  currency  String   @default("USD")
+  
+  createdAt DateTime @default(now())
+  
+  @@index([episodeId])
+  @@index([stage])
+}
+
+model Curriculum {
+  id           String    @id @default(cuid())
+  number       Int       @unique  // Day 1-30
+  goal         String    @db.Text
+  keywords     String[]
+  exampleBirth Json?     // Sample birth data for this episode
+  planDate     DateTime?
+  
+  createdAt    DateTime  @default(now())
+  
+  @@index([number])
+}

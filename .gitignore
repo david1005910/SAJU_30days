@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Secrets
+secrets/
+*.pem
+*.key
+client_secret.json
+token.json
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite
+prisma/migrations/dev/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+venv/
+.venv/
+*.egg-info/
+.uv/
+
+# Storage
+storage/
+uploads/
+rendered/
+
+# Redis
+dump.rdb

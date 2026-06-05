@@ -1,0 +1,30 @@
+{
+  "name": "saju-engine",
+  "version": "1.0.0",
+  "description": "YouTube automation pipeline for Saju Engineering",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:web\" \"pnpm dev:worker\"",
+    "dev:web": "pnpm --filter web dev",
+    "dev:worker": "pnpm --filter worker dev",
+    "build": "pnpm -r build",
+    "db:migrate": "pnpm --filter @saju-engine/db db:migrate",
+    "db:push": "pnpm --filter @saju-engine/db db:push",
+    "db:studio": "pnpm --filter @saju-engine/db db:studio",
+    "db:seed": "pnpm --filter @saju-engine/db db:seed",
+    "setup": "pnpm install && pnpm db:push",
+    "clean": "pnpm -r clean",
+    "test": "pnpm -r test",
+    "start:infra": "docker compose -f infra/docker-compose.yml up -d",
+    "stop:infra": "docker compose -f infra/docker-compose.yml down",
+    "start:all": "pnpm start:infra && sleep 5 && pnpm db:push && concurrently \"pnpm dev\" \"cd services/api && uv run uvicorn main:app --reload\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "packageManager": "pnpm@8.14.0"
+}
