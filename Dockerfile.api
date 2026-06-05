@@ -1,0 +1,38 @@
+# FastAPI Dockerfile for Saju calculation engine
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+RUN pip install uv
+
+# Copy project files
+COPY services/api/pyproject.toml services/api/
+COPY services/api/saju services/api/saju/
+COPY services/api/interpret services/api/interpret/
+COPY services/api/main.py services/api/
+COPY curriculum/30day.yaml curriculum/
+
+# Install Python dependencies
+WORKDIR /app/services/api
+RUN uv venv && \
+    uv pip install fastapi uvicorn pydantic anthropic \
+    python-dotenv httpx python-multipart pyyaml \
+    korean-lunar-calendar
+
+# Expose port
+EXPOSE 8000
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Run the application
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
